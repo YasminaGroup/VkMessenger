@@ -1,10 +1,15 @@
 package ru.lenarlenar.vkmessenger;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +22,14 @@ import android.widget.TextView;
 
 import com.vk.sdk.VKSdk;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import org.jetbrains.annotations.NotNull;
+
+import ru.lenarlenar.vkmessenger.MessagesFragment.OnFragmentInteractionListener;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
+        , BottomNavigationView.OnNavigationItemSelectedListener
+        ,OnFragmentInteractionListener
+        {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -46,16 +58,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        //mViewPager = (ViewPager) findViewById(R.id.container);
+        //mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(this);
 
 
 
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        final BottomNavigationView bNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bNav.setOnNavigationItemSelectedListener(this);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,7 +103,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         VKSdk.login(this, "email");
     }
 
-    /**
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if(item == null){
+            return false;
+        }
+
+        Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.tab_profile:
+                selectedFragment = ProfileFragment.Companion.newInstance("","");
+                break;
+            case R.id.tab_messages:
+                selectedFragment = MessagesFragment.Companion.newInstance("","");
+                break;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, selectedFragment);
+        transaction.commit();
+        return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(@NotNull Uri uri) {
+
+    }
+
+            /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
