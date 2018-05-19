@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final BottomNavigationView bNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bNav.setOnNavigationItemSelectedListener(this);
+        bNav.setSelectedItemId(R.id.tab_profile);
     }
 
     @Override

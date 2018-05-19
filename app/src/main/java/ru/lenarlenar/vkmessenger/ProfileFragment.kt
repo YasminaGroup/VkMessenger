@@ -4,9 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.AppCompatButton
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import com.vk.sdk.VKSdk
+import com.vk.sdk.VKSdk.login
 
 
 /**
@@ -17,7 +22,11 @@ import android.view.ViewGroup
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), View.OnClickListener {
+    override fun onClick(p0: View?) {
+
+        VKSdk.login(this.activity!!, "email")
+    }
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -36,7 +45,13 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        val loginBtn = view.findViewById<Button>(R.id.button_login) as Button
+        loginBtn.setOnClickListener{
+            VKSdk.login(this.activity!!, "email")
+        }
+
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
