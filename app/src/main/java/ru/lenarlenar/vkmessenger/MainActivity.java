@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -114,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment selectedFragment = null;
         switch (item.getItemId()) {
             case R.id.tab_profile:
-                selectedFragment = ProfileFragment.Companion.newInstance("","");
+                selectedFragment = ProfileFragment.newInstance("","");
                 break;
             case R.id.tab_messages:
-                selectedFragment = MessagesFragment.Companion.newInstance("","");
+                selectedFragment = MessagesFragment.newInstance("","");
                 break;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
