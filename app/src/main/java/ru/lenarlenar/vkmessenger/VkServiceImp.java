@@ -12,7 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.lenarlenar.vkmessenger.model.User;
+import ru.lenarlenar.vkmessenger.model.UsersResponseModel;
 import ru.lenarlenar.vkmessenger.model.VkUser;
 
 /**
@@ -21,7 +21,7 @@ import ru.lenarlenar.vkmessenger.model.VkUser;
 
 public class VkServiceImp implements VkService {
     @Override
-    public Observable<User> getMyDetails() {
+    public Observable<VkUser> getMyDetails() {
 
 
         return Observable.create(subscriber -> {
@@ -35,36 +35,19 @@ public class VkServiceImp implements VkService {
 
             UserService us = retrofit.create(UserService.class);
 
-            us.getDetail(VKAccessToken.currentToken().accessToken, VKSdk.getApiVersion()).enqueue(new Callback<VkUser>() {
+            us.getDetail(VKAccessToken.currentToken().accessToken, VKSdk.getApiVersion()).enqueue(new Callback<UsersResponseModel>() {
                 @Override
-                public void onResponse(Call<VkUser> call, Response<VkUser> response) {
+                public void onResponse(Call<UsersResponseModel> call, Response<UsersResponseModel> response) {
                     //Данные успешно пришли, но надо проверить response.body() на null
                     Log.d("us", "success");
-                    if(response.body() != null){
-                        Log.d("us", response.body().getFirstName());
-                    }
+                    subscriber.onNext(response.body().getUsers()[0]);
                 }
                 @Override
-                public void onFailure(Call<VkUser> call, Throwable t) {
+                public void onFailure(Call<UsersResponseModel> call, Throwable t) {
                     Log.d("us", "fail");
                     //Произошла ошибка
                 }
             });
-//           Callback<User> callback = new Callback<VKApiUser>() {
-//                @Override
-//                public void success(VKApiUser result) {
-//                    Log.i(TAG, "Got your details, pal!");
-//                    subscriber.onNext(new com.zedeff.twittererer.models.User(result.data.name, result.data.screenName, result.data.profileImageUrl));
-//                }
-//
-//                @Override
-//                public void failure(TwitterException e) {
-//                    Log.e(TAG, e.getMessage(), e);
-//                    subscriber.onError(e);
-//                }
-//            };
-
-            //getService(UserService.class).show(TwitterCore.getInstance().getSessionManager().getActiveSession().getUserId()).enqueue(callback);
         });
     }
 }

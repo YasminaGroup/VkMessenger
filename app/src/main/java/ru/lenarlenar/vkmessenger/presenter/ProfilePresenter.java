@@ -26,14 +26,7 @@ public class ProfilePresenter {
     public void initialise(ProfileView view) {
         this.view = new WeakReference<>(view);
         vkService.getMyDetails().subscribe(user -> {
-            int a = 1;
+            view.setName(user.getFullName());
         });
-
-//        service.getMyDetails()
-//                .observeOn(scheduler)
-//                .subscribe(user -> {
-//                    service.setCurrentUser(user);
-//                    refreshTweets();
-//                });
     }
 }

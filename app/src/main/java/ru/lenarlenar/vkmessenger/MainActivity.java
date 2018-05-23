@@ -19,10 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKSdk;
 
 import org.jetbrains.annotations.NotNull;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.lenarlenar.vkmessenger.MessagesFragment.OnFragmentInteractionListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
@@ -45,12 +48,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private ViewPager mViewPager;
 
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
+
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -68,11 +80,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        final BottomNavigationView bNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bNav.setOnNavigationItemSelectedListener(this);
         bNav.setSelectedItemId(R.id.tab_profile);
     }

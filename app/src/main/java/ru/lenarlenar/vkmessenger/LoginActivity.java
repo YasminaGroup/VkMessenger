@@ -10,14 +10,32 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity {
+
+    @BindView(R.id.button_login)
+    Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Button loginBtn = (Button) findViewById(R.id.button_login);
+
+        if(VKAccessToken.currentToken() != null && !VKAccessToken.currentToken().isExpired()){
+            openNextScreen();
+        }
+
+        ButterKnife.bind(this);
+
         loginBtn.setOnClickListener((view) -> {VKSdk.login(this, "email");});
+    }
+
+    private void openNextScreen(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -25,8 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                openNextScreen();
             }
             @Override
             public void onError(VKError error) {

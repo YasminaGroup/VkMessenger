@@ -26,7 +26,7 @@ import ru.lenarlenar.vkmessenger.view.ProfileView;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment implements ProfileView, View.OnClickListener {
+public class ProfileFragment extends Fragment implements ProfileView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -76,9 +76,6 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
     TextView userName;
 
 
-    @BindView(R.id.button)
-    Button testButton;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +84,9 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
 
         ButterKnife.bind(this, view);
 
-        testButton.setOnClickListener(this);
+
+        presenter = new ProfilePresenter(new VkServiceImp());
+        presenter.initialise(this);
 
 
 
@@ -124,9 +123,5 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
         userName.setText(name);
     }
 
-    @Override
-    public void onClick(View view) {
-        presenter = new ProfilePresenter(new VkServiceImp());
-        presenter.initialise(this);
-    }
+
 }
