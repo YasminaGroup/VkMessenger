@@ -107,9 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        if(item == null){
-            return false;
-        }
+
 
         Fragment selectedFragment = null;
         switch (item.getItemId()) {
