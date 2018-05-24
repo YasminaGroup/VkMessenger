@@ -2,7 +2,6 @@ package ru.lenarlenar.vkmessenger;
 
 
 import io.reactivex.Observable;
-import ru.lenarlenar.vkmessenger.model.User;
 import ru.lenarlenar.vkmessenger.model.VkUser;
 
 /**
