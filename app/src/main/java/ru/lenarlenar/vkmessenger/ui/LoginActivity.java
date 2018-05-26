@@ -1,4 +1,4 @@
-package ru.lenarlenar.vkmessenger;
+package ru.lenarlenar.vkmessenger.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,13 @@ import android.widget.Button;
 
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ru.lenarlenar.vkmessenger.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        loginBtn.setOnClickListener((view) -> {VKSdk.login(this, "email");});
+        loginBtn.setOnClickListener((view) -> {VKSdk.login(this, VKScope.EMAIL, VKScope.FRIENDS, VKScope.MESSAGES);});
     }
 
     private void openNextScreen(){

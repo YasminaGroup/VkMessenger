@@ -1,4 +1,4 @@
-package ru.lenarlenar.vkmessenger;
+package ru.lenarlenar.vkmessenger.ui;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,13 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ru.lenarlenar.vkmessenger.App;
+import ru.lenarlenar.vkmessenger.R;
 import ru.lenarlenar.vkmessenger.presenter.ProfilePresenter;
 import ru.lenarlenar.vkmessenger.view.ProfileView;
 
@@ -21,7 +22,7 @@ import ru.lenarlenar.vkmessenger.view.ProfileView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MessagesFragment.OnFragmentInteractionListener} interface
+ * {@link DialogsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -39,7 +40,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Inject
     ProfilePresenter presenter;
 
-    private MessagesFragment.OnFragmentInteractionListener mListener;
+    private DialogsFragment.OnFragmentInteractionListener mListener;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -70,6 +71,10 @@ public class ProfileFragment extends Fragment implements ProfileView {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //DaggerApp_ApplicationComponent.builder().build().inject(this );
+        ((App.ApplicationComponent)App.component()).inject(this);
+        //DaggerFragmentComponent.builder().baseApplicationComponent(App.component()).build().inject(this);
     }
 
     @BindView(R.id.textView_userName)
@@ -85,7 +90,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
         ButterKnife.bind(this, view);
 
 
-        presenter = new ProfilePresenter(new VkServiceImp());
+        //presenter = new ProfilePresenter(new VkServiceImp());
         presenter.initialise(this);
 
 
@@ -103,8 +108,8 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof MessagesFragment.OnFragmentInteractionListener) {
-            mListener = (MessagesFragment.OnFragmentInteractionListener) context;
+        if (context instanceof DialogsFragment.OnFragmentInteractionListener) {
+            mListener = (DialogsFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

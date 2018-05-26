@@ -9,6 +9,8 @@ import com.vk.sdk.VKSdk;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ru.lenarlenar.vkmessenger.ui.DialogsFragment;
+import ru.lenarlenar.vkmessenger.ui.ProfileFragment;
 
 /**
  * Created by Ленар on 18.05.2018.
@@ -46,7 +48,9 @@ public class App extends Application {
 
     @Singleton
     @Component(modules = {AppModule.class})
-    interface ApplicationComponent extends BaseApplicationComponent {
+    public interface ApplicationComponent extends BaseApplicationComponent {
+        void inject(ProfileFragment activity);
+        void inject(DialogsFragment activity);
     }
 
     public interface BaseApplicationComponent {

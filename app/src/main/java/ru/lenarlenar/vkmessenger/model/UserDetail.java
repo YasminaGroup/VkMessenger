@@ -3,7 +3,7 @@ package ru.lenarlenar.vkmessenger.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class VkUser {
+public class UserDetail {
 
     @SerializedName("id")
     @Expose

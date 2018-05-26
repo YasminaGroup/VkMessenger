@@ -1,4 +1,4 @@
-package ru.lenarlenar.vkmessenger;
+package ru.lenarlenar.vkmessenger.ui;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,11 +16,11 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ru.lenarlenar.vkmessenger.MessagesFragment.OnFragmentInteractionListener;
+import ru.lenarlenar.vkmessenger.R;
 
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener
-        ,OnFragmentInteractionListener
+        ,DialogsFragment.OnFragmentInteractionListener
 {
 
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements
                 selectedFragment = ProfileFragment.newInstance("","");
                 break;
             case R.id.tab_messages:
-                selectedFragment = MessagesFragment.newInstance("","");
+                selectedFragment = DialogsFragment.newInstance("","");
                 break;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
