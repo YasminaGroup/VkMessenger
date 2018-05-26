@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VkMessenger.iml" filepath="$PROJECT_DIR$/VkMessenger.iml" />
-      <module fileurl="file://E:\my\projects\VkMessenger\VkMessenger.iml" filepath="E:\my\projects\VkMessenger\VkMessenger.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\my\projects\VkMessenger\app\app.iml" filepath="E:\my\projects\VkMessenger\app\app.iml" />
     </modules>
   </component>
 </project>
